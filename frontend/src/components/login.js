@@ -2,7 +2,7 @@ import React from 'react'
 import { useRef } from 'react';
 import axios from 'axios';
 
-const Section = () => {
+const Login = () => {
   const formRef=useRef(null)
   const handleSubmit=(e)=>{
 e.preventDefault();
@@ -16,7 +16,7 @@ console.log(object)
 // axios.post("localhost:8080/signup",object)
 axios({
   method:"POST",
-  url:"http://localhost:8080/signup",
+  url:"http://localhost:8080/login",
   data:object,
 }).then((res)=>res.data).then((res)=>{
   console.log(res);
@@ -49,22 +49,7 @@ axios({
         <div className="card bg-glass">
           <div className="card-body px-4 py-5 px-md-5">
             <form method="POST"  onSubmit={handleSubmit} ref={formRef} >
-              {/* <!-- 2 column grid layout with text inputs for the first and last names --> */}
-              <div className="row">
-                <div className="col-md-6 mb-4">
-                  <div className="form-outline">
-                    <input type="text" id="form3Example1" placeholder='First name' className="form-control" name="Fname" />
-                    <label className="form-label" htmlFor="form3Example1"></label>
-                  </div>
-                </div>
-                <div className="col-md-6 mb-4">
-                  <div className="form-outline">
-                    <input type="text" id="form3Example2" placeholder='Last name' className="form-control" name="Lname" />
-                    <label className="form-label" htmlFor="form3Example2"></label>
-                  </div>
-                </div>
-              </div>
-
+        
               {/* <!-- Email input --> */}
             
               <div className="form-outline mb-4">
@@ -122,4 +107,4 @@ axios({
   )
 }
 
-export default Section
+export default Login
