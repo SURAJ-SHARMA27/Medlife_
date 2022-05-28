@@ -12,6 +12,7 @@ import Contact from './components/Contact'
 import Description from './components/Description';
 import Product_desc from './components/Product_desc';
 import Section from './components/Section';
+import Login from './components/login';
 
 
 
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route exact path="/section">
             <Section/>
+          </Route>
+          <Route exact path="/login">
+            <Login/>
           </Route>
      </Switch>
 
