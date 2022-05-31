@@ -1,29 +1,40 @@
-const express = require("express");
 const products = require("./data/product")
 const dotenv = require('dotenv')
 const connectDb = require('./config/config')
 const product = require('./data/product')
 const bodyParser=require("body-parser")
-var cors = require('cors');
+const express = require("express");
+const path = require('path')
+//import {useNavigate} from react-router-dom;
+//const navigate = useNavigate();
 
-const encoder = bodyParser.urlencoded();
+
+
+const cors = require('cors');
+const { Router } = require("express");
+
+
+
 //dotenv config
 dotenv.config();
 //connecting to mysql database
 connectDb.execute('SELECT * FROM logindb')
-  .then(result => {
-    console.log(result[0]);
+.then(result => {
+    console.log("connected to database");
   })
   .catch(err => {
     console.log(err);
   });
-
+  
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'static')));
 
-app.post("/signup",encoder, (req,res) => 
+
+
+app.post("/signup", (req,res) => 
 {
       const emailid = req.body.email;
       const password = req.body.password;
@@ -39,30 +50,32 @@ app.post("/signup",encoder, (req,res) =>
       );
 });
 
-app.post("/login",encoder, (req,res) => 
+app.post("/login", (req,res) => 
 {
+
       const emailid = req.body.email;
       const password = req.body.password;
       
-      connectDb.query("SELECT * From logindb WHERE emailid = ? AND password = ?",
-      [emailid,password],(err, result)=>{
-        if(err)
+      connectDb.execute("SELECT * From logindb WHERE emailid = ? AND password = ?",[emailid,password])
+      .then(result => {
+        if(result[0].length >0)
         {
-          res.send({err:err})
-        }
-
-        if(result.length >0)
-        {
-          res.send(result);
+         return res.redirect('http://localhost:3000/description')
+          console.log("yes");
         }
         else
         {
-          res.send("message:wrong username password");
+          res.status("no");
         }
-        
-      });
-    
+      })
+        .catch(err => {
+          console.log(err);
+        });
+
 });
+
+
+
 
 app.get("/product",(req,res)=>
 {
