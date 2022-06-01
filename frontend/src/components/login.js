@@ -1,9 +1,12 @@
 import React from 'react'
 import { useRef } from 'react';
 import axios from 'axios';
+//import {useHistory} from 'react-router-dom'
+
 
 const Login = () => {
   const formRef=useRef(null)
+//  const history = useHistory();
   const handleSubmit=(e)=>{
 e.preventDefault();
 const formdata=new FormData(formRef.current);
@@ -14,6 +17,9 @@ formdata.forEach(function(value, key){
 });
 console.log(object)
 // axios.post("localhost:8080/signup",object)
+
+
+
 axios({
   method:"POST",
   url:"http://localhost:8080/login",
@@ -23,6 +29,11 @@ axios({
 }).catch((e)=>{
   console.log(e)
 })
+
+
+
+
+
   }
   return (
     <>
@@ -72,8 +83,8 @@ axios({
               </div>
 
               {/* <!-- Submit button --> */}
-              <button type="submit" className="btn btn-danger btn-block mb-4 mx" >
-                Sign up
+              <button type="submit"  /*onClick={()=>{history.push("/description")}} */ className="btn btn-danger btn-block mb-4 mx" >
+                LOGIN
               </button>
 
               {/* <!-- Register buttons --> */}
@@ -91,7 +102,7 @@ axios({
                   <i className="fab fa-twitter"></i>
                 </button>
 
-                <button type="button"  className="btn btn-link btn-floating mx-1">
+                <button type="button" className="btn btn-link btn-floating mx-1">
                   <i className="fab fa-github"></i>
                 </button>
               </div>

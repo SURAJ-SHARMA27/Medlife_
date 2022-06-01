@@ -1,8 +1,10 @@
 import React from 'react'
 import { useRef } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const Section = () => {
+  const history = useHistory()
   const formRef=useRef(null)
   const handleSubmit=(e)=>{
 e.preventDefault();
@@ -91,12 +93,19 @@ axios({
                 Sign up
               </button>
 
+              <button type="submit"  onClick={()=>{history.push("/login")}} className="btn btn-danger btn-block mb-4 mx" >
+                Already have a account 
+              </button>
+
               {/* <!-- Register buttons --> */}
               <div className="text-center">
+
                 <p>or sign up with:</p>
                 <button type="button" className="btn btn-link btn-floating mx-1">
                   <i className="fab fa-facebook-f"></i>
                 </button>
+                
+                
 
                 <button type="button" className="btn btn-link btn-floating mx-1">
                   <i className="fab fa-google"></i>
