@@ -18,7 +18,7 @@ console.log(object)
 // axios.post("localhost:8080/signup",object)
 axios({
   method:"POST",
-  url:"http://localhost:8080/login",
+  url:"http://localhost:9080/signup",
   data:object,
 }).then((res)=>res.data).then((res)=>{
   if(res==="added")

@@ -91,11 +91,11 @@ app.get("/product/:ids" ,(req,res) => {
     res.json(pro);
 
 });
-const PORT = 8080;
+const PORT = 9080;
 // app.listen(process.env.PORT||PORT,()=>{
 //     console.log('server is running in '+ process.env.NODE_ENV + ' mode on port ' +  PORT)  ;
 // });
-app.listen(8080,()=>{
+app.listen(9080,()=>{
   console.log("its working")
 });
 
