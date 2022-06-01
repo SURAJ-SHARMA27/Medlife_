@@ -30,7 +30,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'static')));
+
 
 
 
@@ -40,14 +40,16 @@ app.post("/signup", (req,res) =>
       const password = req.body.password;
       const Firstname = req.body.Fname;
       const Lastname = req.body.Lname;
-      
-      connectDb.query("INSERT INTO logindb (emailid ,password, firstname,lastname) VALUES (?,?,?,?)",
-      [emailid,password,Firstname,Lastname],(err, result,field)=>{
 
-        console.log(err);
-        res.redirect("/login");
-      }
-      );
+      connectDb.execute('INSERT INTO logindb (emailid ,password, firstname,lastname) VALUES (?,?,?,?)',[emailid,password,Firstname,Lastname])
+      .then(result => {
+          console.log(result[0]);
+          res.status(200).send("added")
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      
 });
 
 app.post("/login", (req,res) => 
@@ -60,12 +62,13 @@ app.post("/login", (req,res) =>
       .then(result => {
         if(result[0].length >0)
         {
-         return res.redirect('http://localhost:3000/description')
-          console.log("yes");
+          res.status(200).send("status working")
+          console.log(result[0])
         }
         else
         {
-          res.status("no");
+          res.status(200).send("not working")
+          console.log(result[0]);
         }
       })
         .catch(err => {
