@@ -40,16 +40,14 @@ app.post("/signup", (req,res) =>
       const password = req.body.password;
       const Firstname = req.body.Fname;
       const Lastname = req.body.Lname;
-
-      connectDb.execute('INSERT INTO logindb (emailid ,password, firstname,lastname) VALUES (?,?,?,?)',[emailid,password,Firstname,Lastname])
-      .then(result => {
-          console.log(result[0]);
-          res.status(200).send("added")
-        })
-        .catch(err => {
-          console.log(err);
-        });
       
+      connectDb.query("INSERT INTO logindb (emailid ,password, firstname,lastname) VALUES (?,?,?,?)",
+      [emailid,password,Firstname,Lastname],(err, result,field)=>{
+
+        console.log(err);
+        res.redirect("/login");
+      }
+      );
 });
 
 app.post("/login", (req,res) => 

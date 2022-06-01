@@ -1,12 +1,12 @@
 import React from 'react'
 import { useRef } from 'react';
 import axios from 'axios';
-//import {useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 
 
 const Login = () => {
   const formRef=useRef(null)
-//  const history = useHistory();
+  const history = useHistory();
   const handleSubmit=(e)=>{
 e.preventDefault();
 const formdata=new FormData(formRef.current);
@@ -25,7 +25,14 @@ axios({
   url:"http://localhost:8080/login",
   data:object,
 }).then((res)=>res.data).then((res)=>{
-  console.log(res);
+  if(res==="status working")
+  {
+    history.push('/description');
+  }
+  else if(res==="not working")
+  {
+    alert('Incorrect email and password');
+  }
 }).catch((e)=>{
   console.log(e)
 })
